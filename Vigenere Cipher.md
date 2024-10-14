@@ -1,3 +1,5 @@
+# Cryptography---19CS412-classical-techqniques
+
 # Vigenere Cipher
 Vigenere Cipher using with different key values
 
@@ -21,81 +23,75 @@ Testing algorithm with different key values.
 ALGORITHM DESCRIPTION:
 The Vigenere cipher is a method of encrypting alphabetic text by using a series of different Caesar ciphers based on the letters of a keyword. It is a simple form of polyalphabetic substitution.To encrypt, a table of alphabets can be used, termed a Vigenere square, or Vigenere table. It consists of the alphabet written out 26 times in different rows, each alphabet shifted cyclically to the left compared to the previous alphabet, corresponding to the 26 possible Caesar ciphers. At different points in the encryption process, the cipher uses a different alphabet from one of the rows used. The alphabet at each point depends on a repeating keyword.
 
-
-
 ## PROGRAM:
 ```
 #include <stdio.h>
-#include <string.h>
 #include <ctype.h>
-
-#define MAX_LENGTH 100
-
-int main() 
+#include <string.h>
+#include<stdlib.h>
+void encipher();
+void decipher();
+void main()
 {
-    char input[MAX_LENGTH];
-    char key[MAX_LENGTH];
-    char result[MAX_LENGTH];
-
-    printf("Enter the text to encrypt: ");
-    fgets(input, MAX_LENGTH, stdin);
-    input[strcspn(input, "\n")] = '\0'; 
-
-    printf("Enter the key: ");
-    fgets(key, MAX_LENGTH, stdin);
-    key[strcspn(key, "\n")] = '\0'; 
-
-    int inputLength = strlen(input);
-    int keyLength = strlen(key);
-
-    for (int i = 0, j = 0; i < inputLength; ++i) 
-    {
-        char currentChar = input[i];
-
-        if (isalpha(currentChar))
-        {
-            int shift = toupper(key[j % keyLength]) - 'A';
-            int base = isupper(currentChar) ? 'A' : 'a';
-
-            result[i] = ((currentChar - base + shift + 26) % 26) + base;
-            ++j;
-        }
-        else
-        {
-            result[i] = currentChar;
-        }
-    }
-
-    result[inputLength] = '\0';
-    printf("Encrypted text: %s\n", result);
-
-    for (int i = 0, j = 0; i < inputLength; ++i) 
-    {
-        char currentChar = result[i];
-
-        if (isalpha(currentChar)) 
-        {
-            int shift = toupper(key[j % keyLength]) - 'A';
-            int base = isupper(currentChar) ? 'A' : 'a';
-
-            result[i] = ((currentChar - base - shift + 26) % 26) + base;
-            ++j;
-        }
-    }
-
-    result[inputLength] = '\0';
-    printf("Decrypted text: %s\n", result);
-
-    return 0;
+int choice;
+while(1)
+{
+printf("\n1. Encrypt Text");
+printf("\t2. Decrypt Text");
+printf("\t3. Exit");
+printf("\n\nEnter Your Choice : ");
+scanf("%d",&choice);
+if(choice == 3)
+break;
+else if(choice == 1)
+encipher();
+else if(choice == 2)
+decipher();
+else
+printf("Please Enter Valid Option.");
+ }
+}
+void encipher()
+{
+unsigned int i,j;
+char input[50],key[10];
+printf("\n\nEnter Plain Text: ");
+scanf("%s",input);
+printf("\nEnter Key Value: ");
+scanf("%s",key);
+printf("\nResultant Cipher Text: ");
+for(i=0,j=0;i<strlen(input);i++,j++)
+{
+if(j>=strlen(key))
+{ j=0;
+}
+printf("%c",65+(((toupper(input[i])-65)+(toupper(key[j])-
+65))%26));
+}}
+void decipher()
+{
+unsigned int i,j;
+char input[50],key[10];
+int value;
+printf("\n\nEnter Cipher Text: ");
+scanf("%s",input);
+ printf("\n\nEnter the key value: ");
+scanf("%s",key);
+for(i=0,j=0;i<strlen(input);i++,j++)
+{
+if(j>=strlen(key))
+{ j=0; }
+value = (toupper(input[i])-64)-(toupper(key[j])-64);
+if( value < 0)
+{ value = value * -1;
+}
+printf("%c",65 + (value % 26));
+}
 }
 ```
 
 ## OUTPUT:
-
-![Screenshot 2024-10-14 152746](https://github.com/user-attachments/assets/e81af5d7-c060-4470-9ba6-7acef9002b17)
-
+![output 3](https://github.com/user-attachments/assets/527cb005-7ee6-46d9-bc34-ef18dfe2517f)
 
 ## RESULT:
 The program is executed successfully
-
------------------------------------------------------------------------
